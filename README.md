@@ -1,45 +1,74 @@
-# Hydrogen template: Skeleton
+# 🪶 Nooke — Shopify Hydrogen Portfolio Storefront
 
-Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dovetail with [Remix](https://remix.run/), Shopify’s full stack web framework. This template contains a **minimal setup** of components, queries and tooling to get started with Hydrogen.
+Nooke is a **custom Shopify storefront** built with [Shopify Hydrogen](https://shopify.dev/custom-storefronts/hydrogen) and [Remix](https://remix.run/).
+It serves as a **portfolio project** to showcase my expertise in modern e-commerce development using Shopify’s headless stack.
 
-[Check out Hydrogen docs](https://shopify.dev/custom-storefronts/hydrogen)
-[Get familiar with Remix](https://remix.run/docs/en/v1)
+This project demonstrates how to build a performant, design-focused storefront leveraging my **7+ years of experience with React.js**, while integrating the latest Hydrogen features to create a seamless, dynamic shopping experience.
 
-## What's included
+---
 
-- Remix
-- Hydrogen
-- Oxygen
-- Vite
-- Shopify CLI
-- ESLint
-- Prettier
-- GraphQL generator
-- TypeScript and JavaScript flavors
-- Minimal setup of components and routes
+## ⚙️ Tech Stack
 
-## Getting started
+- **Shopify Hydrogen** – Shopify’s React-based framework for custom storefronts
+- **Remix** – Full-stack web framework for building fast, dynamic web apps
+- **Oxygen** – Shopify’s global hosting platform for Hydrogen storefronts
+- **Vite** – Lightning-fast build tool and development environment
+- **GraphQL** – Typed queries for Shopify Storefront API
+- **TypeScript / JavaScript** – Full type safety and flexibility
+- **ESLint & Prettier** – Code formatting and linting for consistency
+- **Shopify CLI** – Local development and deployment workflows
 
-**Requirements:**
+---
 
-- Node.js version 18.0.0 or higher
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** 18.0.0 or higher
+- A **Shopify development store** connected via the Shopify CLI
+
+### Installation
 
 ```bash
 npm create @shopify/hydrogen@latest
 ```
 
-## Building for production
+Then navigate into your project folder and install dependencies:
 
 ```bash
-npm run build
+npm install
 ```
 
-## Local development
+### Local Development
+
+Run the app locally with hot reloading:
 
 ```bash
 npm run dev
 ```
 
-## Setup for using Customer Account API (`/account` section)
+### Build for Production
 
-Follow step 1 and 2 of <https://shopify.dev/docs/custom-storefronts/building-with-the-customer-account-api/hydrogen#step-1-set-up-a-public-domain-for-local-development>
+```bash
+npm run build
+```
+
+---
+
+## 👤 About This Project
+
+Nooke was built to **demonstrate a clean, scalable, and performant Shopify storefront architecture**, focusing on:
+
+- Fast page loads with React server components
+- Reusable, modular UI built with Hydrogen components
+- Custom routing and data fetching via Remix loaders
+- Optimized developer workflow for headless commerce projects
+
+This project represents how I approach **Shopify development at a professional level**—balancing clean design, scalability, and business logic within modern e-commerce ecosystems.
+
+---
+
+## 🌐 Links
+
+- [Shopify Hydrogen Docs](https://shopify.dev/custom-storefronts/hydrogen)
+- [Remix Docs](https://remix.run/docs/en/v1)
