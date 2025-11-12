@@ -18,15 +18,17 @@ export function ProductForm({
   const navigate = useNavigate();
   const {open} = useAside();
   return (
-    <div className="product-form">
+    <div className="space-y-6">
       {productOptions.map((option) => {
         // If there is only a single value in the option values, don't display the option
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
-            <div className="product-options-grid">
+          <div key={option.name} className="space-y-3">
+            <h5 className="font-heading font-medium text-deep-charcoal text-sm uppercase tracking-wider">
+              {option.name}
+            </h5>
+            <div className="flex flex-wrap gap-2">
               {option.optionValues.map((value) => {
                 const {
                   name,
@@ -39,6 +41,17 @@ export function ProductForm({
                   swatch,
                 } = value;
 
+                const optionItemClasses = `
+                  inline-flex items-center justify-center px-4 py-2 rounded-lg border-2 transition-all duration-200 font-body text-sm
+                  ${
+                    selected
+                      ? 'border-soft-ember bg-soft-ember text-nooke-white'
+                      : 'border-border-soft bg-white text-deep-charcoal hover:border-warm-stone'
+                  }
+                  ${available ? '' : 'opacity-50 cursor-not-allowed'}
+                  ${exists ? 'cursor-pointer' : 'cursor-not-allowed'}
+                `;
+
                 if (isDifferentProduct) {
                   // SEO
                   // When the variant is a combined listing child product
@@ -46,18 +59,12 @@ export function ProductForm({
                   // as an anchor tag
                   return (
                     <Link
-                      className="product-options-item"
+                      className={optionItemClasses}
                       key={option.name + name}
                       prefetch="intent"
                       preventScrollReset
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
-                      style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
-                        opacity: available ? 1 : 0.3,
-                      }}
                     >
                       <ProductOptionSwatch swatch={swatch} name={name} />
                     </Link>
@@ -71,19 +78,11 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${
-                        exists && !selected ? ' link' : ''
-                      }`}
+                      className={optionItemClasses}
                       key={option.name + name}
-                      style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
-                        opacity: available ? 1 : 0.3,
-                      }}
                       disabled={!exists}
                       onClick={() => {
-                        if (!selected) {
+                        if (!selected && exists) {
                           void navigate(`?${variantUriQuery}`, {
                             replace: true,
                             preventScrollReset: true,
@@ -97,29 +96,32 @@ export function ProductForm({
                 }
               })}
             </div>
-            <br />
           </div>
         );
       })}
-      <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          open('cart');
-        }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                  selectedVariant,
-                },
-              ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+      <div className="mt-8">
+        <AddToCartButton
+          disabled={!selectedVariant || !selectedVariant.availableForSale}
+          onClick={() => {
+            open('cart');
+          }}
+          lines={
+            selectedVariant
+              ? [
+                  {
+                    merchandiseId: selectedVariant.id,
+                    quantity: 1,
+                    selectedVariant,
+                  },
+                ]
+              : []
+          }
+        >
+          {selectedVariant?.availableForSale
+            ? 'Add to Sanctuary'
+            : 'Unavailable'}
+        </AddToCartButton>
+      </div>
     </div>
   );
 }
@@ -134,17 +136,25 @@ function ProductOptionSwatch({
   const image = swatch?.image?.previewImage?.url;
   const color = swatch?.color;
 
-  if (!image && !color) return name;
+  if (!image && !color) return <span className="font-body">{name}</span>;
 
   return (
-    <div
-      aria-label={name}
-      className="product-option-label-swatch"
-      style={{
-        backgroundColor: color || 'transparent',
-      }}
-    >
-      {!!image && <img src={image} alt={name} />}
+    <div aria-label={name} className="flex items-center space-x-2">
+      <div
+        className="w-6 h-6 rounded-full border border-border-soft"
+        style={{
+          backgroundColor: color || 'transparent',
+        }}
+      >
+        {!!image && (
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover rounded-full"
+          />
+        )}
+      </div>
+      <span className="font-body text-sm">{name}</span>
     </div>
   );
 }
