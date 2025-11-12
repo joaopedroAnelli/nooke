@@ -33,25 +33,30 @@ export function PageLayout({
   publicStoreDomain,
 }: PageLayoutProps) {
   return (
-    <Aside.Provider>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
-      {header && (
-        <Header
+    <div className="min-h-screen bg-nooke-white">
+      <Aside.Provider>
+        <CartAside cart={cart} />
+        <SearchAside />
+        <MobileMenuAside
           header={header}
-          cart={cart}
-          isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
         />
-      )}
-      <main>{children}</main>
-      <Footer
-        footer={footer}
-        header={header}
-        publicStoreDomain={publicStoreDomain}
-      />
-    </Aside.Provider>
+        {header && (
+          <Header
+            header={header}
+            cart={cart}
+            isLoggedIn={isLoggedIn}
+            publicStoreDomain={publicStoreDomain}
+          />
+        )}
+        <main className="flex-1">{children}</main>
+        <Footer
+          footer={footer}
+          header={header}
+          publicStoreDomain={publicStoreDomain}
+        />
+      </Aside.Provider>
+    </div>
   );
 }
 
