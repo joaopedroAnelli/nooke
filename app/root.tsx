@@ -198,14 +198,25 @@ export function ErrorBoundary() {
   }
 
   return (
-    <div className="route-error">
-      <h1>Oops</h1>
-      <h2>{errorStatus}</h2>
-      {errorMessage && (
-        <fieldset>
-          <pre>{errorMessage}</pre>
-        </fieldset>
-      )}
+    <div className="min-h-screen bg-nooke-white flex items-center justify-center px-4">
+      <div className="max-w-md w-full text-center">
+        <h1 className="font-heading text-6xl font-light text-deep-charcoal mb-4">
+          {errorStatus}
+        </h1>
+        <h2 className="font-heading text-xl font-medium text-warm-stone mb-6">
+          A moment of unintended clutter
+        </h2>
+        {errorMessage && (
+          <div className="bg-white border border-border-soft rounded-xl p-6 mb-8">
+            <p className="font-body text-deep-charcoal text-sm">
+              {errorMessage}
+            </p>
+          </div>
+        )}
+        <a href="/" className="btn-primary inline-flex items-center">
+          Return to Sanctuary
+        </a>
+      </div>
     </div>
   );
 }
