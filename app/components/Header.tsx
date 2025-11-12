@@ -25,17 +25,34 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+    <header className="header bg-nooke-white border-b border-border-soft sticky top-0 z-50 backdrop-blur-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <NavLink
+            prefetch="intent"
+            to="/"
+            style={activeLinkStyle}
+            end
+            className="flex items-center"
+          >
+            <span className="font-heading text-2xl font-medium text-deep-charcoal tracking-wider">
+              NO
+              <span className="relative">
+                O
+                <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-soft-ember rounded-full"></span>
+              </span>
+              KE
+            </span>
+          </NavLink>
+          <HeaderMenu
+            menu={menu}
+            viewport="desktop"
+            primaryDomainUrl={header.shop.primaryDomain.url}
+            publicStoreDomain={publicStoreDomain}
+          />
+          <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+        </div>
+      </div>
     </header>
   );
 }
@@ -51,8 +68,11 @@ export function HeaderMenu({
   viewport: Viewport;
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
-  const className = `header-menu-${viewport}`;
   const {close} = useAside();
+
+  const desktopClasses = 'hidden md:flex items-center space-x-8';
+  const mobileClasses = 'flex flex-col space-y-4 p-4';
+  const className = viewport === 'desktop' ? desktopClasses : mobileClasses;
 
   return (
     <nav className={className} role="navigation">
@@ -63,6 +83,7 @@ export function HeaderMenu({
           prefetch="intent"
           style={activeLinkStyle}
           to="/"
+          className="font-heading font-medium text-deep-charcoal hover:text-soft-ember transition-colors duration-200"
         >
           Home
         </NavLink>
@@ -79,7 +100,7 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
+            className="font-heading font-medium text-sm text-deep-charcoal hover:text-soft-ember transition-colors duration-200 uppercase tracking-wider"
             end
             key={item.id}
             onClick={close}
