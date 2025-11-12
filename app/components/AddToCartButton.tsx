@@ -7,13 +7,17 @@ export function AddToCartButton({
   disabled,
   lines,
   onClick,
+  variant = 'primary',
 }: {
   analytics?: unknown;
   children: React.ReactNode;
   disabled?: boolean;
   lines: Array<OptimisticCartLineInput>;
   onClick?: () => void;
+  variant?: 'primary' | 'secondary';
 }) {
+  const buttonClasses = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher: FetcherWithComponents<any>) => (
@@ -27,8 +31,9 @@ export function AddToCartButton({
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
+            className={buttonClasses}
           >
-            {children}
+            {fetcher.state !== 'idle' ? 'Adding to Sanctuary...' : children}
           </button>
         </>
       )}
